@@ -38,15 +38,28 @@ class RegistrationViewModel:ObservableObject{
     @Published var isValid = false
     @Published var showAlert = false
     @Published var errorOrSuceesMsg = ""
+    @Published var isShowing = false
+    @Published var isSuccess = false
+    
     
     private var cancellableSet: Set<AnyCancellable> = []
+    
+    private var searchCancellable : Cancellable?  {
+        didSet {
+            oldValue?.cancel()
+        }
+    }
+    
+    deinit {
+        searchCancellable?.cancel()
+    }
     
     private var isUserFirstNameValidPublisher: AnyPublisher<Bool, Never> {
         $firstName
             .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
             .map { input in
-                return input.count >= 3
+                return input.count >= 1
         }
         .eraseToAnyPublisher()
     }
@@ -55,7 +68,7 @@ class RegistrationViewModel:ObservableObject{
             .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
             .map { input in
-                return input.count >= 3
+                return input.count >= 1
         }
         .eraseToAnyPublisher()
     }
@@ -65,7 +78,7 @@ class RegistrationViewModel:ObservableObject{
             .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
             .map { input in
-                return input.count >= 3
+                return input.count >= 1
         }
         .eraseToAnyPublisher()
     }
@@ -75,7 +88,7 @@ class RegistrationViewModel:ObservableObject{
             .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
             .map { password in
-                return password.count >= 3
+                return password.count >= 1
         }
         .eraseToAnyPublisher()
     }
@@ -83,8 +96,8 @@ class RegistrationViewModel:ObservableObject{
         $confirmPassword
             .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
-            .map { password in
-                return password == ""
+            .map { input in
+                return input.count >= 1
         }
         .eraseToAnyPublisher()
     }
@@ -107,69 +120,44 @@ class RegistrationViewModel:ObservableObject{
         .eraseToAnyPublisher()
     }
     
-    //      private var passwordStrengthPublisher: AnyPublisher<PasswordStrength, Never> {
-    //        $password
-    //          .debounce(for: 0.2, scheduler: RunLoop.main)
-    //          .removeDuplicates()
-    //          .map { input in
-    //            return Navajo.strength(ofPassword: input)
-    //          }
-    //          .eraseToAnyPublisher()
-    //      }
-    //
-    //      private var isPasswordStrongEnoughPublisher: AnyPublisher<Bool, Never> {
-    //        passwordStrengthPublisher
-    //          .map { strength in
-    //            print(Navajo.localizedString(forStrength: strength))
-    //            switch strength {
-    //            case .reasonable, .strong, .veryStrong:
-    //              return true
-    //            default:
-    //              return false
-    //            }
-    //          }
-    //          .eraseToAnyPublisher()
-    //      }
     
-    //      enum PasswordCheck {
-    //        case valid
-    //        case empty
-    //        case noMatch
-    //        case notStrongEnough
-    //      }
+    private var isFormValidPublisher1: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest3(isUserFirstNameValidPublisher, isUserLastNameValidPublisher,isUserEmailValidPublisher)
+            .map { firstname, lastname,email in
+                return firstname && lastname && email
+        }
+        .eraseToAnyPublisher()
+    }
     
-    //      private var isPasswordValidPublisher: AnyPublisher<PasswordCheck, Never> {
-    //        Publishers.CombineLatest3(isPasswordEmptyPublisher, arePasswordsEqualPublisher, isPasswordStrongEnoughPublisher)
-    //          .map { passwordIsEmpty, passwordsAreEqual, passwordIsStrongEnough in
-    //            if (passwordIsEmpty) {
-    //              return .empty
-    //            }
-    //            else if (!passwordsAreEqual) {
-    //              return .noMatch
-    //            }
-    //            else if (!passwordIsStrongEnough) {
-    //              return .notStrongEnough
-    //            }
-    //            else {
-    //              return .valid
-    //            }
-    //          }
-    //          .eraseToAnyPublisher()
-    //      }
-    ////
-    //      private var isFormValidPublisher: AnyPublisher<Bool, Never> {
-    //        Publishers.CombineLatest(isUserEmailValidPublisher, isPasswordValidPublisher)
-    //          .map { userNameIsValid, passwordIsValid in
-    //            return userNameIsValid && (passwordIsValid == .valid)
-    //          }
-    //        .eraseToAnyPublisher()
-    //      }
+    private var isFormValidPublisher2: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest4(isPasswordEmptyPublisher, isPhoneNumEmptyPublisher,isConfirmPasswordEmptyPublisher,isPasswordEmptyPublisher)
+            .map { a,b,c,d in
+                return a && b && c && d
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    private var isFormValidPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest(isFormValidPublisher1, isFormValidPublisher2)
+            .map { form1,form2 in
+                return form1 && form2
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    
     
     init() {
         
+        isFormValidPublisher
+            .receive(on: RunLoop.main)
+            .assign(to: \.isValid, on: self)
+            .store(in: &cancellableSet)
+        
+        
         isUserFirstNameValidPublisher
             .receive(on: RunLoop.main)
-.dropFirst()
+            .dropFirst()
             .map { valid in
                 valid ? "" : "name can't be empty"
         }
@@ -203,7 +191,7 @@ class RegistrationViewModel:ObservableObject{
             .map { valid in
                 valid ? "" : "confirm Password can't be empty"
         }
-        .assign(to: \.confirmPassword, on: self)
+        .assign(to: \.confirmMessage, on: self)
         .store(in: &cancellableSet)
         
         
@@ -229,26 +217,6 @@ class RegistrationViewModel:ObservableObject{
         
         
         
-        
-        
-        
-        //        isPasswordValidPublisher
-        //          .receive(on: RunLoop.main)
-        //          .map { passwordCheck in
-        //            switch passwordCheck {
-        //            case .empty:
-        //              return "Password must not be empty"
-        //            case .noMatch:
-        //              return "Passwords don't match"
-        //            case .notStrongEnough:
-        //              return "Password not strong enough"
-        //            default:
-        //              return ""
-        //            }
-        //          }
-        //          .assign(to: \.passwordMessage, on: self)
-        //          .store(in: &cancellableSet)
-        
         arePasswordsEqualPublisher
             .receive(on: RunLoop.main)
             .dropFirst()
@@ -256,66 +224,50 @@ class RegistrationViewModel:ObservableObject{
             .map { valid in
                 valid ? "" : "password doesn't matches"
         }
-        .assign(to: \.confirmPassword, on: self)
+        .assign(to: \.confirmMessage, on: self)
         .store(in: &cancellableSet)
         
         
-        //.assign(to: \.isValid, on: self)
-        // .store(in: &cancellableSet)
     }
     
     
-    //    func fetch() {
-    //        let para=[
-    //            "first_name": "Ka",
-    //            "last_name": "Mara",
-    //            "email": "a5@gmail.com",
-    //            "password": "Kannan123",
-    //            "confirm_password": "Kannan123",
-    //            "gender": "M",
-    //           "phone_no": "8765434567"
-    //        ]
-    //
-    //           let url = URL(string: "http://staging.php-dev.in:8844/trainingapp/api/users/register")
-    //           guard let urlMain = url else{return}
-    //           var request = URLRequest(url: urlMain)
-    //           request.httpMethod = "POST"
-    //
-    //        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-    //        request.addValue("application/json", forHTTPHeaderField: "Accept")
-    //
-    //
-    //
-    //          //request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    //        request.httpBody = para.percentEncoded()
-    //
-    //
-    //
-    //
-    //          // let jsonData = try! JSONSerialization.data(withJSONObject: para, options: [])
-    //
-    //           URLSession.shared.dataTask(with: request){(data, response, error) in
-    //               guard let httpResponse = response as? HTTPURLResponse  else{return}
-    //               if error == nil{
-    //                   if let safeData = data{
-    //                       let decoder = JSONDecoder()
-    //                       do{
-    //                           let result =  try decoder.decode(RegistrationModel.self, from: safeData)
-    //                           DispatchQueue.main.async {
-    //
-    //
-    //                            //completion(result)
-    //                           }
-    //                       }
-    //                       catch{
-    //                           print(error)
-    //                       }
-    //                   }
-    //               }
-    //        }.resume()
-    //
-    //}
-    //
+    func fetch() {
+        
+        let url = URL(string: API.K_Registeration)!
+        
+        self.isShowing = true
+        let para=[
+            "first_name": firstName,
+            "last_name": lastName,
+            "email": email,
+            "password": password,
+            "confirm_password": confirmPassword,
+            "gender": gender,
+            "phone_no": phoneNum
+        ]
+        
+        
+        searchCancellable = ApiManager<LoginModel>.fetchData(url: url, parameters: para, method: "POST").receive(on: RunLoop.main).sink(receiveCompletion: { (completion) in
+            switch completion{
+            case .finished:
+                break
+            case .failure(let error):
+                self.errorOrSuceesMsg = error.localizedDescription
+                self.showAlert = true
+                self.isShowing = false
+                self.isSuccess = false
+            }
+            
+        }, receiveValue: { loginData in
+            print(loginData)
+            if loginData.status == 200{
+                self.errorOrSuceesMsg = loginData.user_msg ?? ""
+                self.showAlert = true
+                self.isShowing = false
+                self.isSuccess = true
+            }
+        })
+    }
 }
 
 

@@ -8,8 +8,10 @@
 
 import Foundation
 import SwiftUI
+let size = UIScreen.main.bounds.size
+
 struct AutoTextFields:View {
-    
+
     @Binding var name: String
     let icon :String
     let placeholder: String
@@ -35,6 +37,11 @@ struct AutoTextFields:View {
                         }else{
                             
                             TextField(placeholder, text: $name).foregroundColor(Color.white)
+
+                            
+                          // TextFieldWithKeyboardObserver(text:$name, placeholder: "hghjghj").foregroundColor(Color.white)
+                            
+
                             
                         }
                     }
@@ -44,7 +51,7 @@ struct AutoTextFields:View {
             )
             Text(erroMsg).frame(minWidth:0, maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing,20)
-                .foregroundColor(Color.gray)
+                .foregroundColor(Color.yellow)
                 .font(.subheadline)
 
         }

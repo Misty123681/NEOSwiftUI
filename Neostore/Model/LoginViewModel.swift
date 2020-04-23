@@ -52,6 +52,7 @@ class LoginViewModel:ObservableObject{
     @Published var showAlert = false
     @Published var errorOrSuceesMsg = ""
     @Published var isShowing = false
+    
 
     private var cancellableSet: Set<AnyCancellable> = []
     
@@ -163,21 +164,25 @@ class LoginViewModel:ObservableObject{
     }
     
     func login() {
-    
+
         self.isShowing = true
         let parameterDictionary = [
             "email" : email,
             "password": password
         ]
         
-        let url=URL(string: "http://staging.php-dev.in:8844/trainingapp/api/users/login")!
+        let url=URL(string: API.K_login)!
         
+//        guard let url=URL(string: API.K_login) else{
+//                   self.isShowing = false
+//                   throw APIError.apiError(reason: "invalid api")
+//
+//               }
         searchCancellable = ApiManager<LoginModel>.fetchData(url: url, parameters: parameterDictionary, method: "POST").receive(on: RunLoop.main).sink(receiveCompletion: { (completion) in
             switch completion{
             case .finished:
                 break
             case .failure(let error):
-                
                 self.errorOrSuceesMsg = error.localizedDescription
                 self.showAlert = true
                 self.isShowing = false
@@ -188,7 +193,7 @@ class LoginViewModel:ObservableObject{
            if loginData.status == 200{
                 self.errorOrSuceesMsg = loginData.user_msg ?? ""
                 self.showAlert = true
-             self.isShowing = false
+                self.isShowing = false
             }
         })
     }

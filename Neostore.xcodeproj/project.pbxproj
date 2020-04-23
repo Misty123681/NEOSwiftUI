@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,8 @@
 		9209F956242DBB5100643322 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9209F955242DBB5100643322 /* Login.swift */; };
 		9209F95B242DDBD900643322 /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9209F95A242DDBD900643322 /* ResetPassword.swift */; };
 		9209F95D242E3B2300643322 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9209F95C242E3B2300643322 /* Registration.swift */; };
+		920C7F3E244F086A004C7DBA /* ImageCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920C7F3D244F086A004C7DBA /* ImageCarousel.swift */; };
+		9214CE9E244731AE0046DA96 /* KeybordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214CE9D244731AE0046DA96 /* KeybordManager.swift */; };
 		9266C4DE2432F3BB0085991F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266C4DD2432F3BB0085991F /* LoginViewModel.swift */; };
 		9266C4E12432F71A0085991F /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266C4E02432F71A0085991F /* helper.swift */; };
 		92B14499243355AE0090F2B3 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B14498243355AE0090F2B3 /* Home.swift */; };
@@ -25,6 +27,11 @@
 		92E3AE422431AC5F001D571D /* RegistrationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3AE412431AC5F001D571D /* RegistrationModel.swift */; };
 		92E3AE452431AD8B001D571D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3AE442431AD8B001D571D /* NetworkManager.swift */; };
 		92E7A61A2431C18900B365B9 /* customTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7A6192431C18900B365B9 /* customTextField.swift */; };
+		92E8738424502B3F00FE446C /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8738324502B3F00FE446C /* GridView.swift */; };
+		92E87387245039DD00FE446C /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E87386245039DD00FE446C /* MenuView.swift */; };
+		92E8738924503FF400FE446C /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8738824503FF400FE446C /* SlideView.swift */; };
+		92FA774C24482CD200262F9B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA774B24482CD200262F9B /* Colors.swift */; };
+		92FA774E24483C6A00262F9B /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA774D24483C6A00262F9B /* Constant.swift */; };
 		F206A2FCE0224F1534883590 /* Pods_Neostore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EC39E5BFBFB4668535F9FE /* Pods_Neostore.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +72,8 @@
 		9209F955242DBB5100643322 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		9209F95A242DDBD900643322 /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
 		9209F95C242E3B2300643322 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
+		920C7F3D244F086A004C7DBA /* ImageCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarousel.swift; sourceTree = "<group>"; };
+		9214CE9D244731AE0046DA96 /* KeybordManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeybordManager.swift; sourceTree = "<group>"; };
 		9266C4DD2432F3BB0085991F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		9266C4E02432F71A0085991F /* helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helper.swift; sourceTree = "<group>"; };
 		92B14498243355AE0090F2B3 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -72,6 +81,11 @@
 		92E3AE412431AC5F001D571D /* RegistrationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModel.swift; sourceTree = "<group>"; };
 		92E3AE442431AD8B001D571D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		92E7A6192431C18900B365B9 /* customTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTextField.swift; sourceTree = "<group>"; };
+		92E8738324502B3F00FE446C /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		92E87386245039DD00FE446C /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		92E8738824503FF400FE446C /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		92FA774B24482CD200262F9B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		92FA774D24483C6A00262F9B /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		A7EC39E5BFBFB4668535F9FE /* Pods_Neostore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Neostore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -136,13 +150,14 @@
 		9209F923242DBB0100643322 /* Neostore */ = {
 			isa = PBXGroup;
 			children = (
+				92E87385245039C000FE446C /* SlideMenu */,
+				92E3AE432431AC6B001D571D /* Model */,
 				9266C4DF2432F6EF0085991F /* Utility */,
 				92E7A6182431C10200B365B9 /* ReusableClasses */,
 				9209F928242DBB0100643322 /* ContentView.swift */,
 				9209F954242DBB1400643322 /* Controllers */,
 				9209F932242DBB0300643322 /* Info.plist */,
 				9209F92C242DBB0300643322 /* Preview Content */,
-				92E3AE432431AC6B001D571D /* Model */,
 			);
 			path = Neostore;
 			sourceTree = "<group>";
@@ -199,6 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				9266C4E02432F71A0085991F /* helper.swift */,
+				92FA774B24482CD200262F9B /* Colors.swift */,
+				92FA774D24483C6A00262F9B /* Constant.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -217,9 +234,21 @@
 			isa = PBXGroup;
 			children = (
 				92E7A6192431C18900B365B9 /* customTextField.swift */,
+				9214CE9D244731AE0046DA96 /* KeybordManager.swift */,
 				92B1449A243356110090F2B3 /* UIKItViews.swift */,
+				920C7F3D244F086A004C7DBA /* ImageCarousel.swift */,
+				92E8738324502B3F00FE446C /* GridView.swift */,
 			);
 			path = ReusableClasses;
+			sourceTree = "<group>";
+		};
+		92E87385245039C000FE446C /* SlideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				92E87386245039DD00FE446C /* MenuView.swift */,
+				92E8738824503FF400FE446C /* SlideView.swift */,
+			);
+			path = SlideMenu;
 			sourceTree = "<group>";
 		};
 		DC8F73ADC21EDF6E5547A2A5 /* Frameworks */ = {
@@ -388,17 +417,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				92E3AE452431AD8B001D571D /* NetworkManager.swift in Sources */,
+				92FA774C24482CD200262F9B /* Colors.swift in Sources */,
 				92E3AE422431AC5F001D571D /* RegistrationModel.swift in Sources */,
+				92E87387245039DD00FE446C /* MenuView.swift in Sources */,
 				9209F925242DBB0100643322 /* AppDelegate.swift in Sources */,
+				9214CE9E244731AE0046DA96 /* KeybordManager.swift in Sources */,
 				9209F927242DBB0100643322 /* SceneDelegate.swift in Sources */,
 				9209F95D242E3B2300643322 /* Registration.swift in Sources */,
 				9209F929242DBB0100643322 /* ContentView.swift in Sources */,
 				92B1449B243356110090F2B3 /* UIKItViews.swift in Sources */,
 				9209F956242DBB5100643322 /* Login.swift in Sources */,
+				92FA774E24483C6A00262F9B /* Constant.swift in Sources */,
 				9209F95B242DDBD900643322 /* ResetPassword.swift in Sources */,
 				9266C4DE2432F3BB0085991F /* LoginViewModel.swift in Sources */,
+				92E8738924503FF400FE446C /* SlideView.swift in Sources */,
 				92E7A61A2431C18900B365B9 /* customTextField.swift in Sources */,
 				92B14499243355AE0090F2B3 /* Home.swift in Sources */,
+				920C7F3E244F086A004C7DBA /* ImageCarousel.swift in Sources */,
+				92E8738424502B3F00FE446C /* GridView.swift in Sources */,
 				9266C4E12432F71A0085991F /* helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

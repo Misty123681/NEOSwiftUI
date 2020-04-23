@@ -37,7 +37,7 @@ class ApiManager<T1 : Decodable> {
                     throw APIError.apiError(reason: "Resource forbidden");
                 }
                 if (httpResponse.statusCode == 404) {
-                    throw APIError.apiError(reason: "Resource not found");
+                    throw APIError.apiError(reason: "Invalid Data sent (either email id or username already exist)");
                 }
                 if (405..<500 ~= httpResponse.statusCode) {
                     throw APIError.apiError(reason: "client error");
